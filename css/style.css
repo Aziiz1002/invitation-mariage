@@ -4,6 +4,7 @@ body {
   font-family: 'Amiri', serif;
   background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
   color: #ffffff;
+  overflow-x: hidden; /* Évite les décalages horizontaux sur mobile */
 }
 
 .font-title {
@@ -18,6 +19,7 @@ body {
 .gold-text {
   background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa7c11 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -33,15 +35,16 @@ body {
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* Enveloppe 3D */
+/* Enveloppe 3D responsive pour mobile */
 .envelope-wrapper {
   perspective: 1000px;
 }
 
 .envelope {
   position: relative;
-  width: 320px;
-  height: 420px;
+  width: 300px;
+  max-width: 90vw;
+  height: 400px;
   background-color: #1e293b;
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 12px;
@@ -116,6 +119,7 @@ body {
 
 .envelope.open .wax-seal {
   opacity: 0;
+  pointer-events: none;
 }
 
 /* Animations Musique */
