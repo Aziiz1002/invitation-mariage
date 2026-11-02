@@ -1,0 +1,12 @@
+{
+  "name": "invitation-mariage",
+  "version": "1.0.0",
+  "description": "Site web d'invitation de mariage",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}

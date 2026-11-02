@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دعوة زفاف عمران و نور</title>
+
+  <!-- Google Fonts Calligraphiques -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 relative">
+
+  <!-- Audio Element -->
+  <audio id="wedding-audio" loop preload="auto">
+    <source src="audio\audioR.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Ecran d'ouverture Luxe : Enveloppe Royale 3D -->
+  <div id="welcome-screen" class="fixed inset-0 z-50 bg-[#0f172a] flex flex-col items-center justify-center p-4 text-center transition-all duration-1000">
+    <div id="envelope-wrapper" class="envelope-wrapper cursor-pointer relative z-10">
+      <div id="envelope" class="envelope shadow-2xl">
+        <div class="flap"></div>
+        <div class="pocket"></div>
+        
+        <!-- Carte d'invitation dans l'enveloppe -->
+        <div class="letter text-center p-4 sm:p-6 flex flex-col items-center justify-between overflow-y-auto">
+          
+          <div class="mb-3">
+            <p class="gold-text text-lg sm:text-xl font-calligraphy mb-1">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+            <p class="text-gray-200 text-xs sm:text-sm leading-relaxed italic font-calligraphy px-2">
+              "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+            </p>
+            <span class="text-[#d4af37] text-[10px] sm:text-xs font-title block mt-1">﴿ سورة الروم - الآية ٢١ ﴾</span>
+          </div>
+
+          <div class="text-[#d4af37] text-sm my-1">۞</div>
+
+          
+
+          <p class="text-[10px] sm:text-xs text-[#d4af37] mt-2 animate-pulse font-title">اضغط لفتح كامل الدعوة ✉️</p>
+        </div>
+
+        <div id="wax-seal" class="wax-seal glow-gold">✨</div>
+      </div>
+    </div>
+    
+    <p class="mt-8 text-[#d4af37] font-title text-sm tracking-widest uppercase">Wedding Invitation</p>
+  </div>
+
+  <!-- Contenu Principal -->
+  <main id="main-card" class="w-full max-w-lg mx-auto glass-card rounded-3xl border border-[#d4af37]/30 p-6 sm:p-10 my-6 text-center relative z-20 shadow-2xl">
+    
+    <!-- En-tête Texte Complet -->
+    <div class="my-4 border-b border-[#d4af37]/30 pb-8 relative">
+      <p class="gold-text text-xl mb-1 font-calligraphy">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+      
+      <p class="gold-text text-lg sm:text-xl my-3 font-calligraphy leading-relaxed">
+        "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+      </p>
+      <span class="text-[#d4af37] text-xs font-title block mb-4">﴿ سورة الروم - الآية ٢١ ﴾</span>
+
+      <div class="text-[#d4af37] text-2xl my-3">۞</div>
+
+      <p class="text-gray-200 text-base font-calligraphy leading-relaxed my-3">
+        لِلْفَرَحِ فِي لَمَّةِ الْأَحِبَّةِ مَعْنًى أَجْمَلُ،<br>
+        وَلِلْسَّعَادَةِ بِحُضُورِكُمْ بَهْجَةٌ أَكْمَلُ،<br>
+        وَبِكُلِّ مَحَبَّةٍ وَسُرُورٍ تَتَشَرَّفُ
+      </p>
+
+      <!-- Familles -->
+<div class="flex items-end justify-center gap-4 sm:gap-6 my-6 bg-[#0f172a]/50 p-4 rounded-2xl border border-[#d4af37]/20 text-center">
+  <div>
+    <p class="text-gray-400 text-xs font-title mb-1">عائلة السيد</p>
+    <p class="gold-text font-bold text-sm sm:text-base font-calligraphy">عماد لحكيمي</p>
+  </div>
+
+  <span class="gold-text font-bold text-sm sm:text-base font-calligraphy px-1 mb-0.5">و</span>
+
+  <div>
+    <p class="text-gray-400 text-xs font-title mb-1">عائلة السيد</p>
+    <p class="gold-text font-bold text-sm sm:text-base font-calligraphy">مراد بن عثمان</p>
+  </div>
+</div>
+
+      <p class="text-gray-300 text-lg font-title my-4">بدعوتكم لحضور حفل زفاف نجليهما</p>
+
+      <h1 class="text-6xl font-calligraphy font-bold gold-text my-3 filter drop-shadow-lg">وديع</h1>
+      <span class="text-3xl text-[#d4af37] font-title block my-1">و</span>
+      <h1 class="text-6xl font-calligraphy font-bold gold-text my-3 filter drop-shadow-lg">آمنة</h1>
+    </div>
+
+    <!-- Compte à rebours -->
+    <div class="my-8">
+      <h3 class="text-lg text-[#d4af37] font-title mb-4 tracking-wider">العد التنازلي لليوم الكبير</h3>
+      <div class="grid grid-cols-4 gap-3 text-center" dir="ltr">
+        <div class="glass-box p-3 rounded-2xl border border-[#d4af37]/40 shadow-inner">
+          <span id="days" class="block text-3xl font-bold gold-text">00</span>
+          <span class="text-xs text-gray-400">أيام</span>
+        </div>
+        <div class="glass-box p-3 rounded-2xl border border-[#d4af37]/40 shadow-inner">
+          <span id="hours" class="block text-3xl font-bold gold-text">00</span>
+          <span class="text-xs text-gray-400">ساعات</span>
+        </div>
+        <div class="glass-box p-3 rounded-2xl border border-[#d4af37]/40 shadow-inner">
+          <span id="minutes" class="block text-3xl font-bold gold-text">00</span>
+          <span class="text-xs text-gray-400">دقائق</span>
+        </div>
+        <div class="glass-box p-3 rounded-2xl border border-[#d4af37]/40 shadow-inner">
+          <span id="seconds" class="block text-3xl font-bold gold-text">00</span>
+          <span class="text-xs text-gray-400">ثواني</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Galerie Photo -->
+    <div class="my-10">
+      <h3 class="text-xl font-title text-[#d4af37] font-bold mb-4">أجمل اللحظات</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="overflow-hidden rounded-2xl border border-[#d4af37]/30 shadow-lg group">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="Couple 1" class="object-cover h-48 w-full group-hover:scale-105 transition duration-500">
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-[#d4af37]/30 shadow-lg group">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80" alt="Couple 2" class="object-cover h-48 w-full group-hover:scale-105 transition duration-500">
+        </div>
+      </div>
+    </div>
+
+    <!-- Programme du mariage (Timeline) -->
+    <div class="my-10 glass-box p-6 rounded-2xl border border-[#d4af37]/40 shadow-xl text-right">
+      <h3 class="text-xl font-title text-[#d4af37] font-bold mb-6 text-center">برنامج الحفل</h3>
+      
+      <div class="space-y-4">
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">🚪</span>
+          <div>
+            <h4 class="text-white font-bold text-base">19:00 - استقبال الضيوف</h4>
+            <p class="text-xs text-gray-400">ترحيب بالحضور الكريم</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">💍</span>
+          <div>
+            <h4 class="text-white font-bold text-base">20:30 - دخول العروسين</h4>
+            <p class="text-xs text-gray-400">مراسم الزفاف والاحتفال</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="text-2xl">🍰</span>
+          <div>
+            <h4 class="text-white font-bold text-base">22:00 - تقطيع الكعكة</h4>
+            <p class="text-xs text-gray-400">مشاركة اللحظات السعيدة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details Programme & Localisation -->
+    <div class="my-10 glass-box p-6 rounded-2xl border border-[#d4af37]/40 shadow-xl">
+      <div class="mb-6">
+        <div class="text-[#d4af37] text-4xl mb-2">📅</div>
+        <h3 class="text-2xl font-title text-white font-bold">التاريخ والتوقيت</h3>
+        <p class="gold-text mt-1 text-xl font-bold">السبت، 23 جانْفِي 2027</p>
+        <p class="text-gray-300 text-sm mb-4">بداية من الساعة 19:00 مساءً</p>
+        
+        <a id="calendar-btn" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4af37] to-[#aa7c11] text-black font-bold px-5 py-2.5 rounded-full text-xs shadow-lg hover:brightness-110 transition">
+          <span>حفظ الموعد في التقويم 🗓️</span>
+        </a>
+      </div>
+
+      <hr class="border-[#d4af37]/20 my-6">
+
+      <div>
+        <div class="text-[#d4af37] text-4xl mb-2">📍</div>
+        <h3 class="text-2xl font-title text-white font-bold">المكان</h3>
+        <p class="text-gray-200 mt-1 text-lg"> Salle des fêtes "La Reine" </p>
+        <p class="text-gray-400 text-sm mb-5"> Ain zaghoune,avenue Khalid ibn Walid </p>
+        
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="https://www.google.com/maps/place/Salle+des+f%C3%AAtes+%22La+Reine%22/@36.8626397,10.2603162,14z/data=!4m14!1m7!3m6!1s0x12e2b547ce89e093:0xd7bb3898c60e0af3!2sSalle+des+f%C3%AAtes+%22La+Reine%22!8m2!3d36.8626397!4d10.2809156!16s%2Fg%2F11c1rfq2pt!3m5!1s0x12e2b547ce89e093:0xd7bb3898c60e0af3!8m2!3d36.8626397!4d10.2809156!16s%2Fg%2F11c1rfq2pt?entry=ttu&g_ep=EgoyMDI2MTAyOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-flex items-center gap-2 bg-[#d4af37]/10 text-[#d4af37] border border-[#d4af37]/40 hover:bg-[#d4af37]/20 px-5 py-2.5 rounded-full text-xs font-bold transition">
+            <span>Google Maps 🧭</span>
+          </a>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Formulaire RSVP -->
+    <div class="my-10 glass-box p-6 rounded-2xl border border-[#d4af37]/40 shadow-xl text-right">
+      <h3 class="text-2xl font-title text-[#d4af37] font-bold mb-2 text-center">تأكيد الحضور</h3>
+      <p class="text-gray-300 text-xs text-center mb-6">يسعدنا إجابتكم لتأكيد حضوركم وتسهيل التنظيم</p>
+
+      <form id="rsvp-form" class="space-y-4">
+        <div>
+          <label class="block text-gray-200 text-xs font-bold mb-1">الاسم الكامل *</label>
+          <input type="text" id="guest-name" required placeholder="أدخل اسمك الكامل" class="w-full bg-[#0f172a] border border-[#d4af37]/40 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#d4af37]">
+        </div>
+
+        <div>
+          <label class="block text-gray-200 text-xs font-bold mb-1">هل ستشرفوننا بحضوركم؟ *</label>
+          <div class="grid grid-cols-2 gap-3 mt-1">
+            <button type="button" id="btn-attending" class="presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition" onclick="selectPresence('حاضر')">
+              سأكون حاضراً ✨
+            </button>
+            <button type="button" id="btn-declining" class="presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition" onclick="selectPresence('معتذر')">
+              أعتذر عن الحضور 🌹
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-gray-200 text-xs font-bold mb-1">عدد المرافقين</label>
+          <input type="number" id="guest-count" min="0" max="5" value="0" class="w-full bg-[#0f172a] border border-[#d4af37]/40 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#d4af37]">
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#d4af37] to-[#aa7c11] text-black font-bold py-3 rounded-xl text-sm shadow-lg hover:brightness-110 transition mt-2">
+          إرسال التأكيد ✉️
+        </button>
+
+        <p id="rsvp-status" class="text-center text-xs font-bold mt-2 hidden"></p>
+      </form>
+    </div>
+
+    <!-- Message de Fin -->
+    <div class="mt-8 text-gray-400 text-sm font-title">
+      <p class="gold-text font-bold text-lg">حضوركم يسعدنا وتكتمل به فرحتنا ✨</p>
+    </div>
+  </main>
+
+  <!-- Lecteur Audio Flottant Chic -->
+  <div id="music-player" class="fixed bottom-6 left-6 glass-box border border-[#d4af37]/50 rounded-full shadow-2xl p-2 z-40 hidden flex items-center gap-3 px-5">
+    <button id="music-btn" class="text-[#d4af37] text-2xl focus:outline-none hover:scale-110 transition">🎵</button>
+    <div class="music-bars flex gap-1">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
