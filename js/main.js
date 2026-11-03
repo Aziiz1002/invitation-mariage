@@ -1,3 +1,22 @@
+// 1. Déclaration globale de selectPresence pour garantir son accès depuis onclick="" dans index.html
+let selectedPresence = 'حاضر';
+
+window.selectPresence = function(status) {
+  selectedPresence = status;
+  const btnAttending = document.getElementById('btn-attending');
+  const btnDeclining = document.getElementById('btn-declining');
+
+  if (btnAttending && btnDeclining) {
+    if (status === 'حاضر') {
+      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
+      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
+    } else {
+      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
+      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
+    }
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('wedding-audio');
   const musicPlayer = document.getElementById('music-player');
@@ -9,108 +28,129 @@ document.addEventListener('DOMContentLoaded', () => {
   // URL Google Apps Script pour l'enregistrement des RSVP
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwh2nGZFHlvIjeLWnZJ62O_vUUw8VFJISKdbekP_NgpwLT2SbwKC97zGUAkgoaN7YDgfw/exec";
 
-  // 1. Animation Ouverture
-  envelopeWrapper.addEventListener('click', () => {
-    envelope.classList.add('open');
-
-    setTimeout(() => {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 80,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#bf953f', '#fcf6ba', '#b38728', '#ffffff']
+  // 2. Animation Ouverture & Lancement Audio Immédiat
+  if (envelopeWrapper) {
+    envelopeWrapper.addEventListener('click', () => {
+      // Déclencher l'audio TOUT DE SUITE au moment du clic physique
+      if (audio) {
+        audio.play().then(() => {
+          if (musicPlayer) musicPlayer.classList.remove('music-paused');
+        }).catch((err) => {
+          console.log("Audio bloqué par le navigateur :", err);
         });
       }
-    }, 400);
 
-    setTimeout(() => {
-      welcomeScreen.classList.add('opacity-0');
+      if (envelope) envelope.classList.add('open');
+
       setTimeout(() => {
-        welcomeScreen.classList.add('hidden');
-        musicPlayer.classList.remove('hidden');
-      }, 700);
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 80,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#bf953f', '#fcf6ba', '#b38728', '#ffffff']
+          });
+        }
+      }, 400);
 
-      audio.play().catch((err) => {
-        console.log("Audio bloqué par le navigateur :", err);
-      });
-    }, 1300);
-  });
+      setTimeout(() => {
+        if (welcomeScreen) welcomeScreen.classList.add('opacity-0');
+        setTimeout(() => {
+          if (welcomeScreen) welcomeScreen.classList.add('hidden');
+          if (musicPlayer) musicPlayer.classList.remove('hidden');
+        }, 700);
+      }, 1300);
+    });
+  }
 
-  // 2. Contrôle Musique
-  musicBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play();
-      musicPlayer.classList.remove('music-paused');
-      musicBtn.innerText = '🎵';
-    } else {
-      audio.pause();
-      musicPlayer.classList.add('music-paused');
-      musicBtn.innerText = '🔇';
-    }
-  });
+  // 3. Contrôle Musique
+  if (musicBtn && audio) {
+    musicBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        if (musicPlayer) musicPlayer.classList.remove('music-paused');
+        musicBtn.innerText = '🎵';
+      } else {
+        audio.pause();
+        if (musicPlayer) musicPlayer.classList.add('music-paused');
+        musicBtn.innerText = '🔇';
+      }
+    });
+  }
 
-  // 3. Gestion du Formulaire RSVP
-  let selectedPresence = 'حاضر';
-
-  window.selectPresence = function(status) {
-    selectedPresence = status;
-    const btnAttending = document.getElementById('btn-attending');
-    const btnDeclining = document.getElementById('btn-declining');
-
-    if (status === 'حاضر') {
-      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
-      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
-    } else {
-      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
-      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
-    }
-  };
-
+  // 4. Formulaire RSVP avec compatibilité Google Apps Script
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
   const submitBtn = document.getElementById('submit-btn');
 
-  rsvpForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (rsvpForm) {
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-    const name = document.getElementById('guest-name').value.trim();
-    const guests = document.getElementById('guest-count').value;
+      const nameInput = document.getElementById('guest-name');
+      const countInput = document.getElementById('guest-count');
 
-    if (!name) return;
+      const name = nameInput ? nameInput.value.trim() : '';
+      const guests = countInput ? countInput.value : '0';
 
-    submitBtn.disabled = true;
-    submitBtn.innerText = "جاري الإرسال...";
+      if (!name) return;
 
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: name,
-        presence: selectedPresence,
-        guests: guests
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "جاري الإرسال...";
+      }
+
+      // Formatage compatible Google Apps Script no-cors
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          name: name,
+          presence: selectedPresence,
+          guests: guests
+        })
       })
-    })
-    .then(() => {
-      rsvpStatus.innerText = "شكرًا لك! تم تسجيل إجابتك بنجاح ✨";
-      rsvpStatus.className = "text-center text-xs font-bold mt-2 text-green-400 block";
-      rsvpForm.reset();
-      submitBtn.disabled = false;
-      submitBtn.innerText = "إرسال التأكيد ✉️";
-    })
-    .catch((err) => {
-      console.error(err);
-      rsvpStatus.innerText = "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.";
-      rsvpStatus.className = "text-center text-xs font-bold mt-2 text-red-400 block";
-      submitBtn.disabled = false;
-      submitBtn.innerText = "إرسال التأكيد ✉️";
+      .then(() => {
+        if (rsvpStatus) {
+          rsvpStatus.innerText = "شكرًا لك! تم تسجيل إجابتك بنجاح ✨";
+          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-green-400 block";
+        }
+        rsvpForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = "إرسال التأكيد ✉️";
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        if (rsvpStatus) {
+          rsvpStatus.innerText = "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.";
+          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-red-400 block";
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerText = "إرسال التأكيد ✉️";
+        }
+      });
     });
-  });
+  }
 
-  // 4. Compte à rebours
+  // 5. Bouton Google Calendar
+  const calendarBtn = document.getElementById('calendar-btn');
+  if (calendarBtn) {
+    const calendarUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+      "&text=" + encodeURIComponent("حفل زفاف وديع و آمنة 💍") +
+      "&dates=20270123T180000Z/20270123T230000Z" +
+      "&details=" + encodeURIComponent("يتشرف السيد عماد لحكيمي والسيد مراد بن عثمان بدعوتكم لحضور حفل زفاف نجليهما وديع و آمنة.") +
+      "&location=" + encodeURIComponent("Salle des fêtes La Reine, Ain Zaghouane, Tunis");
+    calendarBtn.setAttribute('href', calendarUrl);
+  }
+
+  // 6. Compte à rebours optimisé avec format 2 chiffres
   const weddingDate = new Date("January 23, 2027 19:00:00").getTime();
-  const countdownTimer = setInterval(() => {
+  
+  function updateTimer() {
     const now = new Date().getTime();
     const distance = weddingDate - now;
 
@@ -119,9 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
-  }, 1000);
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((distance % (1000 * 60)) / 1000);
+
+    if (daysEl) daysEl.innerText = String(d).padStart(2, '0');
+    if (hoursEl) hoursEl.innerText = String(h).padStart(2, '0');
+    if (minutesEl) minutesEl.innerText = String(m).padStart(2, '0');
+    if (secondsEl) secondsEl.innerText = String(s).padStart(2, '0');
+  }
+
+  const countdownTimer = setInterval(updateTimer, 1000);
+  updateTimer(); // Exécution immédiate
 });
