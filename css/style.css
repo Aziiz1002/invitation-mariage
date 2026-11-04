@@ -14,7 +14,6 @@ body {
 }
 
 /* Texte Doré Scintillant (Gold Foil) */
-/* Dégradé Doré - Fix Masquage Calligraphie */
 .gold-text {
   background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa7c11 100%);
   -webkit-background-clip: text;
