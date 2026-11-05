@@ -8,11 +8,11 @@ window.selectPresence = function(status) {
 
   if (btnAttending && btnDeclining) {
     if (status === 'حاضر') {
-      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
-      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
+      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#aa7c11] py-2.5 rounded-xl text-xs font-bold transition";
+      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-slate-600 py-2.5 rounded-xl text-xs font-bold transition";
     } else {
-      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#d4af37] py-2.5 rounded-xl text-xs font-bold transition";
-      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-gray-400 py-2.5 rounded-xl text-xs font-bold transition";
+      btnDeclining.className = "presence-btn border border-[#d4af37]/40 bg-[#d4af37]/10 text-[#aa7c11] py-2.5 rounded-xl text-xs font-bold transition";
+      btnAttending.className = "presence-btn border border-[#d4af37]/40 bg-transparent text-slate-600 py-2.5 rounded-xl text-xs font-bold transition";
     }
   }
 };
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const welcomeScreen = document.getElementById('welcome-screen');
 
   // URL Google Apps Script pour l'enregistrement des RSVP
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwh2nGZFHlvIjeLWnZJ62O_vUUw8VFJISKdbekP_NgpwLT2SbwKC97zGUAkgoaN7YDgfw/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyc6UVVneddxr0DtT-HgPJvfjesJOI7lz-CGSer_Ip44lXFN1NH-gs4NbFAgQtbrN0WA/exec";
 
   // 2. Animation Ouverture & Lancement Audio Immédiat
   if (envelopeWrapper) {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Formulaire RSVP avec compatibilité Google Apps Script
+  // 4. Formulaire RSVP avec gestion du message pour les mariés
   const rsvpForm = document.getElementById('rsvp-form');
   const rsvpStatus = document.getElementById('rsvp-status');
   const submitBtn = document.getElementById('submit-btn');
@@ -88,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
 
       const nameInput = document.getElementById('guest-name');
-      const countInput = document.getElementById('guest-count');
+      const messageInput = document.getElementById('guest-message'); // NOUVEAU : Récupération du message
 
       const name = nameInput ? nameInput.value.trim() : '';
-      const guests = countInput ? countInput.value : '0';
+      const message = messageInput ? messageInput.value.trim() : '';
 
       if (!name) return;
 
@@ -108,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({
           name: name,
           presence: selectedPresence,
-          guests: guests
+          message: message // NOUVEAU : Envoi du mot pour les mariés
         })
       })
       .then(() => {
         if (rsvpStatus) {
           rsvpStatus.innerText = "شكرًا لك! تم تسجيل إجابتك بنجاح ✨";
-          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-green-400 block";
+          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-green-600 block";
         }
         rsvpForm.reset();
         if (submitBtn) {
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error(err);
         if (rsvpStatus) {
           rsvpStatus.innerText = "حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً.";
-          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-red-400 block";
+          rsvpStatus.className = "text-center text-xs font-bold mt-2 text-red-600 block";
         }
         if (submitBtn) {
           submitBtn.disabled = false;

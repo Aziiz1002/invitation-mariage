@@ -127,18 +127,15 @@
       </div>
     </div>
 
-    <!-- Galerie Photo -->
-    <div class="my-10">
-      <h3 class="text-xl font-title gold-text font-bold mb-4">أجمل اللحظات</h3>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="overflow-hidden rounded-2xl border border-[#d4af37]/30 shadow-lg group">
-          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="Couple 1" class="object-cover h-48 w-full group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="overflow-hidden rounded-2xl border border-[#d4af37]/30 shadow-lg group">
-          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80" alt="Couple 2" class="object-cover h-48 w-full group-hover:scale-105 transition duration-500">
-        </div>
-      </div>
+    <!-- Galerie Photo (Une seule photo avec la hauteur h-64) -->
+<div class="my-10">
+  <h3 class="text-xl font-title gold-text font-bold mb-4">أجمل اللحظات</h3>
+  <div class="w-full">
+    <div class="overflow-hidden rounded-2xl border border-[#d4af37]/30 shadow-lg group">
+      <img src="images/photo2.jpg" alt="Couple 1" class="object-cover h-100 w-full group-hover:scale-105 transition duration-500">
     </div>
+  </div>
+</div>
 
     <!-- Programme du mariage -->
     <div class="my-10 glass-box p-6 rounded-2xl border border-[#d4af37]/40 shadow-xl text-right">
@@ -156,17 +153,12 @@
         <div class="flex items-center gap-4">
           <span class="text-2xl">💍</span>
           <div>
-            <h4 class="text-slate-900 font-bold text-sm sm:text-base">20:30 - دخول العروسين</h4>
+            <h4 class="text-slate-900 font-bold text-sm sm:text-base">19:30 - عقد القران</h4>
             <p class="text-xs text-slate-700">مراسم الزفاف والاحتفال</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-4">
-          <span class="text-2xl">🍰</span>
-          <div>
-            <h4 class="text-slate-900 font-bold text-sm sm:text-base">22:00 - تقطيع الكعكة</h4>
-            <p class="text-xs text-slate-700">مشاركة اللحظات السعيدة</p>
-          </div>
+        
         </div>
       </div>
     </div>
@@ -180,7 +172,7 @@
         <p class="text-slate-700 text-sm mb-4">بداية من الساعة 19:00 مساءً</p>
         
         <a id="calendar-btn" href="#" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4af37] to-[#aa7c11] text-black font-bold px-5 py-2.5 rounded-full text-xs shadow-lg hover:brightness-110 transition cursor-pointer">
-          <span>حفظ الموعد في التقويم 🗓️</span>
+          <span>حفظ الموعد  🗓️</span>
         </a>
       </div>
 
@@ -224,9 +216,9 @@
         </div>
 
         <div>
-          <label class="block text-slate-800 text-xs font-bold mb-1">عدد المرافقين</label>
-          <input type="number" id="guest-count" min="0" max="5" value="0" class="w-full bg-[#fbf9f5] border border-[#d4af37]/40 rounded-xl px-4 py-2.5 text-slate-900 text-sm focus:outline-none focus:border-[#d4af37]">
-        </div>
+  <label class="block text-slate-800 text-xs font-bold mb-1">كلمة أو تهنئة للعروسين ✍️</label>
+  <textarea id="guest-message" rows="3" placeholder="اكتب كلمة تذكارية أو تهنئة للعروسين..." class="w-full bg-[#fbf9f5] border border-[#d4af37]/40 rounded-xl px-4 py-2.5 text-slate-900 text-sm focus:outline-none focus:border-[#d4af37] resize-none"></textarea>
+</div>
 
         <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-[#d4af37] to-[#aa7c11] text-black font-bold py-3 rounded-xl text-sm shadow-lg hover:brightness-110 transition mt-2">
           إرسال التأكيد ✉️
